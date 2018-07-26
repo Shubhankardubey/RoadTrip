@@ -22,7 +22,7 @@
 
 
     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <meta name="theme-color" content="#3f51b5">
 
@@ -40,8 +40,8 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
-                <a class="mdl-navigation__link" href="https://github.com/Shubhankardubey/RoadTrip">GitHub</a>
-                <a class="mdl-navigation__link" href="#">Created by @dpbit</a>
+                <a class="mdl-navigation__link" href="https://github.com/Ayushsincs">GitHub</a>
+                <a class="mdl-navigation__link" href="#">Created by @DPbit</a>
             </nav>
         </div>
     </header>
@@ -49,43 +49,42 @@
         <span class="mdl-layout-title">Road Trip</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="https://github.com/Shubhankardubey/RoadTrip">GitHub</a>
-            <a class="mdl-navigation__link" href="#">Created by @dpbit</a>
+            <a class="mdl-navigation__link" href="#">Created by @DPbit</a>
         </nav>
     </div>
     <div class="container">
         <div class="row">
 
-        <main class="mdl-layout__content">
-        <div class="page-content">
-            <h3 id="html_title">This app will read to you about the places and points of interest you drive by.</h3>
-            <!--<h3 id="d"><strong>The current temperature at your location is :</strong></h3>-->
-            <!--<h4><div id="temp"></div><div id="minutely"></div></h4>-->
-            <!--<h2 id="location"></h2>-->
-            <!--<h2 id="location1"></h2>-->
-            <h3>Searching for : <h4 id="location2"></h4></h3>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="displayIframe()" id="html_start">
-                Search nearby Things
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="displayIframe1()" id="crime">
-                Crime Statistics
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="html_stop">
-                Stop IT
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="html_resume">
-                Resume IT
-            </button>
+            <main class="mdl-layout__content">
+                <div class="page-content">
+                    <h3 id="html_title">This app will read to you about the places and points of interest you drive by.</h3>
+                    <!--<h3 id="d"><strong>The current temperature at your location is :</strong></h3>-->
+                    <!--<h4><div id="temp"></div><div id="minutely"></div></h4>-->
+                    <!--<h2 id="location"></h2>-->
+                    <!--<h2 id="location1"></h2>-->
+                    <h3>Searching for : <h4 id="location2"></h4></h3>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="displayIframe()" id="html_start">
+                        Search nearby Things
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="html_stop">
+                        Stop IT
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="html_resume">
+                        Resume IT
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="displayIframe1()" id="crime">
+                        Crime Statistics
+                    </button>
 
+                    <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-button&#45;&#45;accent" target="_blank" id="html_wiki" onclick="wiki()">-->
+                    <!--Wikipedia-->
+                    <!--</a>-->
+                    <hr>
 
-            <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-button&#45;&#45;accent" target="_blank" id="html_wiki" onclick="wiki()">-->
-                <!--Wikipedia-->
-            <!--</a>-->
-            <hr>
-
-                    <!--<div id="mapholder" float="right"></div>-->
+                    <!-- <div id="image"></div> -->
                 </div>
 
-    </main>
+            </main>
         </div>
     </div>
     <script>
@@ -95,12 +94,14 @@
         }
         function displayIframe1() {
             document.getElementById("iframeDisplay").innerHTML = "<iframe src=\"crimes.html\" name=\"targetframe\" allowTransparency=\"true\" height=\"100%\" width=\"100%\" scrolling=\"yes\" frameborder=\"0\" ></iframe>";
-        }
 
+        }
     </script>
     <div id="iframeDisplay"></div>
 
 
 </div>
+
+
 </body>
 </html>
