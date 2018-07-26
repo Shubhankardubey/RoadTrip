@@ -123,6 +123,13 @@ function wiki(city) {
                //  $('audio').attr('src', url).get(0).play()
                 var msg = new SpeechSynthesisUtterance(arr[j]);
                  window.speechSynthesis.speak(msg);
+                $("#html_stop").click(function(){
+                    window.speechSynthesis.pause(msg);
+                });
+
+                $("#html_resume").click(function(){
+                    window.speechSynthesis.resume(msg);
+                });
             }
             // $('#html_pause').click(function() {
             //     window.speechSynthesis.pause(msg);
@@ -147,12 +154,12 @@ function weather() {
     navigator.geolocation.getCurrentPosition(success, error);
 
 
-    $.getJSON(
-        "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=bikaner",
-        function(data) {
-            // $("#location2").html(forecast.results[0].formatted_address);
-            console.log(data.query.pages);
-        });
+    // $.getJSON(
+    //     "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=bikaner",
+    //     function(data) {
+    //         // $("#location2").html(forecast.results[0].formatted_address);
+    //         console.log(data.query.pages);
+    //     });
 
 
     function success(position) {
@@ -264,6 +271,14 @@ function wiki(city) {
                //  $('audio').attr('src', url).get(0).play()
                 var msg = new SpeechSynthesisUtterance(arr[j]);
                  window.speechSynthesis.speak(msg);
+
+                $("#html_stop").click(function(){
+                    window.speechSynthesis.pause(msg);
+                });
+
+                $("#html_resume").click(function(){
+                    window.speechSynthesis.resume(msg);
+                });
             }
             // $('#html_pause').click(function() {
             //     window.speechSynthesis.pause(msg);
