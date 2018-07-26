@@ -15,8 +15,8 @@ function weather() {
 
 
     function success(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
+        var latitude = 28.0229 ;
+        var longitude = 73.3119;
         console.log(latitude)
         console.log(longitude)
         var latlon = position.coords.latitude + "," + position.coords.longitude;
@@ -26,7 +26,7 @@ function weather() {
 // document.getElementById("location2").innerHTML=city.
         var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
             +latlon+"&zoom=14&size=800x350&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-        document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+        //document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
 
 
 
@@ -38,9 +38,9 @@ function weather() {
         $.getJSON(
             "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=false",
             function(forecast) {
-                $("#location2").html(forecast.results[0].address_components[4].long_name);
+                $("#location2").html(forecast.results[0].address_components[3].long_name);
                // console.log(forecast.results[0].address_components[4].long_name);
-                var city = forecast.results[0].address_components[4].long_name
+                var city = forecast.results[0].address_components[3].long_name
                 wiki(city);
             });
 
@@ -57,29 +57,6 @@ function weather() {
 
             });
 
-        // function displayLocation(latitude,longitude){
-        //      var request = new XMLHttpRequest();
-        //
-        //      var method = 'GET';
-        //      var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
-        //      var async = true;
-        //
-        //      request.open(method, url, async);
-        //      request.onreadystatechange = function(){
-        //        if(request.readyState == 4 && request.status == 200){
-        //          var data = JSON.parse(request.responseText);
-        //          var address = data.results[0];
-        //          document.write(address.formatted_address);
-        //        }
-        //      };
-        //      request.send();
-        //    };
-        //
-        //    var successCallback = function(position){
-        //      var x = position.coords.latitude;
-        //      var y = position.coords.longitude;
-        //      displayLocation(x,y);
-        //    };
 
 
     }
@@ -90,7 +67,7 @@ function weather() {
 
 }
 
-weather();
+
 
 
 function wiki(city) {
@@ -153,3 +130,5 @@ function wiki(city) {
 }
 
 //console.log(document.getElementById('article').value)
+weather();
+

@@ -19,6 +19,8 @@
             crossorigin="anonymous"></script>
 
 
+
+
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -50,29 +52,40 @@
             <a class="mdl-navigation__link" href="#">Created by @dpbit</a>
         </nav>
     </div>
-    <main class="mdl-layout__content">
+    <div class="container">
+        <div class="row">
+
+        <main class="mdl-layout__content">
         <div class="page-content">
             <h3 id="html_title">This app will read to you about the places and points of interest you drive by.</h3>
             <!--<h3 id="d"><strong>The current temperature at your location is :</strong></h3>-->
             <!--<h4><div id="temp"></div><div id="minutely"></div></h4>-->
             <!--<h2 id="location"></h2>-->
             <!--<h2 id="location1"></h2>-->
-            <h4 id="location2"></h4>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="start()" id="html_start">
+            <h3>Searching for : <h4 id="location2"></h4></h3>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="displayIframe()" id="html_start">
                 Start the road trip
             </button>
-            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" target="_blank" id="html_wiki" onclick="wiki()">
-                Wikipedia
-            </a>
+            <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-button&#45;&#45;accent" target="_blank" id="html_wiki" onclick="wiki()">-->
+                <!--Wikipedia-->
+            <!--</a>-->
             <hr>
-            <div class="container">
-                <div class="row">
 
-                    <div id="mapholder" float="right"></div>
+                    <!--<div id="mapholder" float="right"></div>-->
                 </div>
-            </div>
-        </div>
+
     </main>
+        </div>
+    </div>
+    <script>
+        function displayIframe() {
+            document.getElementById("iframeDisplay").innerHTML = "<iframe src=\"maps.html\" name=\"targetframe\" allowTransparency=\"true\" height=\"100%\" width=\"100%\" scrolling=\"yes\" frameborder=\"0\" ></iframe>";
+
+        }
+    </script>
+    <div id="iframeDisplay"></div>
+
+
 </div>
 </body>
 </html>

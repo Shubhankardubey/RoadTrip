@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carto.js Guide</title>
+
+    <!-- Include Leaflet 1.2.0 Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Include cartodb.js Library -->
+    <script src="https://cdn.rawgit.com/CartoDB/cartodb.js/@4.0.0-alpha.28/carto.js"></script>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            box-sizing: border-box;
+            height: 100%;
+        }
+
+        body {
+            background: #f2f6f9;
+            height: 100%;
+            font-family: "Open sans", Helvetica, Arial, sans-serif;
+        }
+
+        #container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        #map {
+            flex: 1;
+            margin: 10px;
+        }
+
+        #widgets {
+            width: 300px;
+            margin: 10px 10px 10px 0;
+        }
+
+        .widget {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .widget h1 {
+            font-size: 1.2em;
+        }
+
+        .widget-formula .result {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container">
+    <div id="map"></div>
+    <div id="widgets">
+        <div id="numCrimesWidget" class="widget widget-formula">
+            <h1>Number of Crimes</h1>
+            <p><span class="js-crime-count" id="crime-count-result">xxx</span> crimes</p>
+        </div>
+        <div id="countriesWidget" class="widget">
+            <h1>Crime Types</h1>
+
+            <div id="crimeTypesChart">
+                <!-- chart goes here -->
+            </div><a href="javascript:resetLayerQuery(crimeDataset, sqlCrimeBase);">Clear</a>
+        </div>
+
+    </div>
+</div>
+<script>
+    // Highcharts code
+
+    var crimeTypesChart = new Highcharts.chart('crimeTypesChart', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            type: 'category',
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Number of crimes'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            enabled: false,
+            valueSuffix: ' millions'
+        },
+        plotOptions: {
+            bar: {
+                allowPointSelect: true,
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        series: [{
+            name: 's1',
+            data: null,
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: function() {
+                        appendLayerQuery(crimeDataset, sqlCrimeBase, "WHERE crime_type = '" + this.name + "'");
+                    }
+                }
+            }
+        }],
+        exporting: {
+            enabled: false
+        }
+    });
+
+    //  CARTO.js code
+
+    var map = L.map('map').setView([28.022935, 73.311916], 8);
+
+    // Adding Voyager Basemap
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy;<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+    }).addTo(map);
+
+    // Adding Voyager Labels
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy;<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>',
+        zIndex: 100
+    }).addTo(map);
+
+    L.control.scale().addTo(map);
+
+    var cto = new carto.Client({
+        apiKey: 'vWtARiDwjgZdTEsFg8fh5g',
+        username: 'steve-carto'
+    });
+
+    var sqlCrimeBase = "SELECT * FROM merged_surrey_street_crime";
+
+    //var crimeDatasetSimple = new carto.source.Dataset('merged_surrey_street_crime');
+    var crimeDataset = new carto.source.SQL(sqlCrimeBase);
+    var crimeDatasetForWidget = new carto.source.SQL(sqlCrimeBase);
+    var crimePointStyle = new carto.style.CartoCSS(`
+  #layer {
+  marker-width: 7;
+  marker-fill: ramp([crime_type], (#5F4690, #1D6996, #38A6A5, #0F8554, #73AF48, #EDAD08, #E17C05, #CC503E, #94346E, #6F4070, #666666), ("Anti-social behaviour", "Violence and sexual offences", "Criminal damage and arson", "Other theft", "Public order", "Burglary", "Vehicle crime", "Shoplifting", "Drugs", "Other crime"), "=");
+  marker-fill-opacity: 1;
+  marker-allow-overlap: true;
+  marker-line-width: 1;
+  marker-line-color: #FFFFFF;
+  marker-line-opacity: 1;
+}`);
+    var crimeLayer = new carto.layer.Layer(crimeDataset, crimePointStyle, {
+        featureClickColumns: ['location', 'crime_type', 'month']
+    });
+
+    cto.addLayer(crimeLayer);
+
+    cto.getLeafletLayer().addTo(map);
+
+    var popup = L.popup();
+    crimeLayer.on('featureClicked', function(featureEvent) {
+        popup.setLatLng(featureEvent.latLng);
+        popup.setContent(featureEvent.data.location + '<br/>' + featureEvent.data.crime_type + '<br/>' + featureEvent.data.month);
+        popup.openOn(map);
+    });
+
+    var crimeTypesDataview = new carto.dataview.Category(crimeDatasetForWidget, 'crime_type', {
+        limit: 100
+    });
+
+    var numberOfCrimes = new carto.dataview.Formula(crimeDataset, 'crime_type', {
+        operation: carto.operation.COUNT
+    });
+
+
+    crimeTypesDataview.on('dataChanged', function(newData) {
+        var crimeTypes = newData.categories.map(function(category) {
+            return [category.name, category.value];
+        }).sort(function(a, b) {
+            return b[1] - a[1]
+        });
+        refreshCrimetypesWidget(crimeTypes);
+    });
+
+    numberOfCrimes.on('dataChanged', function(newData) {
+        refreshNumberOfCrimesWidget(newData.result);
+    });
+
+    var refreshNumberOfCrimesWidget = function(numCrimes) {
+        var widget = document.querySelector('#numCrimesWidget');
+        var labelCrimes = $("#crime-count-result").text(Math.floor(numCrimes));
+    };
+
+    function refreshCrimetypesWidget(crimeTypes) {
+        crimeTypesChart.series[0].setData(crimeTypes, true);
+    };
+
+    function appendLayerQuery(dataset, sqlBase, appendText) {
+        var sql = sqlBase + ' ' + appendText;
+        dataset.setQuery(sql);
+    };
+
+    function resetLayerQuery(dataset, sqlBase) {
+        dataset.setQuery(sqlBase);
+        var selectedPoints = crimeTypesChart.getSelectedPoints();
+        $.each(selectedPoints, function(i, p) {
+            p.select(); //Set the selected points to unselected
+        });
+        crimeTypesChart.redraw();
+    };
+
+    cto.addDataview(crimeTypesDataview);
+    cto.addDataview(numberOfCrimes);
+</script>
+</body>
+
+</html>
