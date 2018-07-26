@@ -9,32 +9,21 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
     <script src="../js/app.js"></script>
-    <script src="../js/weather.js"></script>
     <!-- <script defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdK063YKCSao5XLh0B0h7oD2Ky3WmYV7w&callback=initMap">
     </script> -->
-    <link rel="preconnect" href="https://en.wikipedia.org">
-    <link rel="preconnect" href="https://roadtrip-api.glitch.me">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
     <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            src="http://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous"></script>
-    <!--<script>-->
-        <!--window.dataLayer = window.dataLayer || [];-->
-        <!--function gtag(){dataLayer.push(arguments);}-->
-        <!--gtag('js', new Date());-->
-        <!--gtag('config', 'UA-121987888-1', {-->
-            <!--cookie_domain: document.domain,-->
-            <!--'app_name': 'Road trip'-->
-        <!--});-->
-    <!--</script>-->
-    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121987888-1"></script>-->
-    <!--<link href="/manifest.json" rel="manifest">-->
+
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <meta name="theme-color" content="#3f51b5">
-    <link rel="apple-touch-icon" href="https://cdn.glitch.com/93aac3ad-5e37-4ee6-8bf0-133d676ba436%2Flogo.png?1530855990742">
+
     <meta name="description" content="This app will read to you about the places and points of interest you drive by.">
 </head>
 
@@ -64,46 +53,24 @@
     <main class="mdl-layout__content">
         <div class="page-content">
             <h3 id="html_title">This app will read to you about the places and points of interest you drive by.</h3>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="language_select">
-                <select class="mdl-textfield__input" id="language_inner_select" name="language_inner_select">
-                </select>
-            </div>
+            <!--<h3 id="d"><strong>The current temperature at your location is :</strong></h3>-->
+            <!--<h4><div id="temp"></div><div id="minutely"></div></h4>-->
+            <!--<h2 id="location"></h2>-->
+            <!--<h2 id="location1"></h2>-->
+            <h4 id="location2"></h4>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="start()" id="html_start">
                 Start the road trip
             </button>
             <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" target="_blank" id="html_wiki" onclick="wiki()">
                 Wikipedia
             </a>
-            <!-- <div class="mdl-spinner mdl-js-spinner is-active" style="display:none" id="html_spinner"></div>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="pause()" id="html_pause"  style="display:none">
-                Pause
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="play()" id="html_play"  style="display:none">
-                Play
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="skipParagraph()" id="html_skip"  style="margin-top:4px;display:none">
-                Skip Paragraph
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="forward()" id="html_next"  style="margin-top:4px;display:none">
-                Next Article
-            </button> -->
             <hr>
             <div class="container">
                 <div class="row">
-                    <h1 id="d"><strong>The current temperature at your location is :</strong></h1>
-                    <h1><div id="temp"></div><div id="minutely"></div></h1>
-                    <h2><div id="location"></div></h2>
-                    <h2><div id="location1"></div></h2>
-                    <h2><div id="location2"></div></h2>
+
                     <div id="mapholder" float="right"></div>
                 </div>
             </div>
-            <!--<div id="article"></div>-->
-            <!--<div id="map"></div>-->
-            <!--<div id="toast" class="mdl-js-snackbar mdl-snackbar">-->
-                <!--<div class="mdl-snackbar__text"></div>-->
-                <!--<button class="mdl-snackbar__action" type="button"></button>-->
-            <!--</div>-->
         </div>
     </main>
 </div>
