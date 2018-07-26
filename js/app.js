@@ -56,6 +56,7 @@ function weather() {
         //         $("#location2").html(forecast.results[0].address_components[3].long_name);
         //         // console.log(forecast.results[0].address_components[4].long_name);
                  var city = 'Bikaner';
+                 document.getElementById('location2').innerHTML = city;
                  wiki(city);
         //     });
 
