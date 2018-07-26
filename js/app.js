@@ -50,15 +50,14 @@ function weather() {
         //     "Latitude is " + latitude + "°";
         //  document.getElementById('location1').innerHTML = " Longitude is " + longitude + "°";
 
-        // $.getJSON(
-        //     "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=false",
-        //     function(forecast) {
-        //         $("#location2").html(forecast.results[0].address_components[3].long_name);
-        //         // console.log(forecast.results[0].address_components[4].long_name);
-                 var city = 'Bikaner';
-                 document.getElementById('location2').innerHTML = city;
-                 wiki(city);
-        //     });
+        $.getJSON(
+            "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=false",
+            function(forecast) {
+                $("#location2").html(forecast.results[0].address_components[3].long_name);
+                // console.log(forecast.results[0].address_components[4].long_name);
+                var city = forecast.results[0].address_components[3].long_name
+                wiki(city);
+            });
 
 
 
