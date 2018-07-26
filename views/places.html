@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+
+
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script>
+
+        function wiki(city) {
+            this.city = 'bikaner';
+            console.log(city)
+            // this.wikipedia_url = 'https://en.wikipedia.org/wiki/' + this.city;
+            // console.log(this.wikipedia_url);
+            // document.getElementById("html_wiki").href = this.wikipedia_url;
+            // //return this.wikipedia_url
+//
+            $.ajax({
+                url: "https://www.indiatvnews.com/topic/",
+                data: {
+                    format: "json",
+                    action: "parse",
+                    page: this.city,
+                    prop: "text",
+                    section: 0,
+                },
+                dataType: 'jsonp',
+                success: function (data) {
+
+//console.log(data)
+                    var markup = data.parse.text["*"];
+                    var i = $('<div></div>').html(markup);
+                    //   $('#article').html(i);
+
+                    //remove links as they will not work
+
+                    i.find('a').each(function () {
+                        $(this).replaceWith($(this).html());
+                    });
+
+                    // remove any references
+                    i.find('sup').remove();
+
+                    i.find('img').remove();
+                    i.find('span').remove();
+                    // remove cite error
+                    i.find('.mw-ext-cite-error').remove();
+
+                    let z = $(i).find('p');
+                    //console.log($(i).find('p')[1]);
+                    let arr = []
+                    for(let i =1; i<z.length; i++){
+                        let y = jQuery(z[i]).text();
+                        arr.push(y)
+                    }
+                    console.log(arr)
+                    //speech
+                    for(let j=0; j<arr.length; j++){
+                        // var url = "https://translate.google.com/translate_tts?ie=UTF-8&q" + arr[i] + "&tl=en";
+                        //  $('audio').attr('src', url).get(0).play()
+                        var msg = new SpeechSynthesisUtterance(arr[j]);
+                        window.speechSynthesis.speak(msg);
+                    }
+                    // $('#html_pause').click(function() {
+                    //     window.speechSynthesis.pause(msg);
+                    // })
+
+
+                    // let y = jQuery($(i).find('p')[1]).text();
+                    //  console.log(y)
+
+                }
+            })
+        }
+    </script>
+</head>
+
+<body onload="imageWp()">
+<div id="viewer"></div>
+</body>
+</html>
